@@ -14,8 +14,14 @@ TEST_DIR = test
 # Ignore src folder
 .PHONY: src
 
+all: project_code
+default: project_code
+
 project_code:
 	$(MAKE) -C $(TEST_DIR)
+
+check:
+	$(MAKE) -C $(TEST_DIR) check
 
 clean:
 	$(MAKE) -C $(TEST_DIR) clean

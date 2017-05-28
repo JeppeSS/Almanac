@@ -1,6 +1,8 @@
-TARGET = 
+TARGET = testRandom.o 
 
 
+RANDDIR = ../crypto/rand
+RANDFILES = $(RANDDIR)/random.c
 
 CC = gcc
 CFLAG= -std=c11 -Wall -Wextra -pedantic -Wshadow -Wpointer-arith -Wcast-align \
@@ -13,12 +15,16 @@ LIBS = -lm -lgmp -fopenmp $(mysql_config --cflags --libs)
 default: $(TARGET)
 all: $(TARGET)
 
-HEADERS = $(wildcard *.h)
 
 .PRECIOUS: $(TARGET) $(OBJECTS)
 
+
+
 $(TARGET): %.o: %.c
-	$(CC) $< $(SRC) $(CFLAG)$ $(LIBS)-o $@
+	$(CC) $(RANDFILES) $(CFLAG)$ $(LIBS) $< -o $@
+
+check:
+	./testRandom.o
 
 clean:
 	-rm -f *.o
