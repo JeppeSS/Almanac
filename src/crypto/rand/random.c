@@ -13,7 +13,7 @@
 #include "random.h"
 
 // Seed generator
-static int genSeed(char *buf, size_t len);
+static int genSeed(void *buf, size_t len);
 
 
 /* 
@@ -29,7 +29,7 @@ static int genSeed(char *buf, size_t len);
  * ============================================================================
  */
 
-static int genSeed(char *buf, size_t len){
+static int genSeed(void *buf, size_t len){
 
     // The stat struct retrives information about the /dev/urandom file.
     struct stat st;
@@ -96,7 +96,8 @@ static int genSeed(char *buf, size_t len){
 		size_t wanted = len - i;
 
         // Read data into buffer
-		ssize_t ret = read(fd, buf + i, wanted);
+		ssize_t ret = read(fd, (char *)buf + i, wanted);
+
 
 		if (ret < 0) {
 
@@ -145,7 +146,7 @@ int randomUniform(mpz_t rand, mpz_t n){
     buf = calloc(bytes, bytes * sizeof(char));
 
     // Random seed pulled from /dev/urandom
-    int seed = genSeed(buf, bytes);
+    int seed = genSeed(&buf, bytes);
 
     if(seed){
         return EXIT_FAILURE;
@@ -164,18 +165,14 @@ int randomUniform(mpz_t rand, mpz_t n){
     // Set an initial seed value into randState.
     gmp_randseed_ui(randState, randomSeed);
 
+
     // Generates the random integer.
     mpz_urandomm(rand, randState, n);
-
+    
     // Free allocated memory for randState.
     gmp_randclear(randState);
 
-    for(size_t i = 0; i < bytes; i++){
-        buf[i] = 0;
-    }
 
-    // Free buffer.
-    free(buf);
 
     return EXIT_SUCCESS;
 }
