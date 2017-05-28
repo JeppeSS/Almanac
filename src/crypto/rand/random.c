@@ -169,6 +169,10 @@ int randomUniform(mpz_t rand, mpz_t n){
     // Free allocated memory for randState.
     gmp_randclear(randState);
 
+    for(size_t i = 0; i < bytes; i++){
+        buf[i] = 0;
+    }
+
     // Free buffer.
     free(buf);
 
