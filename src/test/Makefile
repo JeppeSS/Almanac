@@ -1,4 +1,4 @@
-TARGET = testRandom.o 
+TARGET = testRandom.o testStatic.o 
 
 
 RANDDIR = ../crypto/rand
@@ -25,6 +25,9 @@ $(TARGET): %.o: %.c
 
 check:
 	./testRandom.o
+
+static:
+	./testStatic.o
 
 clean:
 	-rm -f *.o
