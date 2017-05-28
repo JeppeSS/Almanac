@@ -23,5 +23,8 @@ project_code:
 check:
 	$(MAKE) -C $(TEST_DIR) check
 
+static:
+	$(MAKE) -C $(TEST_DIR) static
+
 clean:
 	$(MAKE) -C $(TEST_DIR) clean
