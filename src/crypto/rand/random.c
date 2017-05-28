@@ -22,6 +22,7 @@ static int genSeed(char *buf, size_t len);
  *
  *  Description: Generates a random seed. The code for the genSeed function
  *  has been obtained from: https://cryptocoding.net/index.php/Coding_rules
+ *  there have been some modifications to the code.
  *
  *  The function generates a random number into a buffer, with the byte size
  *  of len.
