@@ -1,4 +1,4 @@
-TARGET = testRandom.o testStatic.o 
+TARGET = testRandom.o testBitmap.o testFreq.o 
 
 
 RANDDIR = ../crypto/rand
@@ -27,7 +27,11 @@ check:
 	./testRandom.o
 
 static:
-	./testStatic.o
+	./testBitmap.o
+	python3.6 bitmap.py
+	./testFreq.o 
+	python3.6 freq.py
+
 
 clean:
 	-rm -f *.o
