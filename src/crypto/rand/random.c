@@ -165,9 +165,12 @@ int randomUniform(mpz_t rand, mpz_t n){
     // Set an initial seed value into randState.
     gmp_randseed_ui(randState, randomSeed);
 
-
     // Generates the random integer.
     mpz_urandomm(rand, randState, n);
+   
+    // Decrease range again, otherwise the range will
+    // keep increasing if it is runned again.
+    mpz_sub_ui(n, n, 1);
     
     // Free allocated memory for randState.
     gmp_randclear(randState);
