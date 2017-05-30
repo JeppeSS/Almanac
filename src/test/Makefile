@@ -1,8 +1,8 @@
-TARGET = testRandom.o testSK.o testBitmap.o testFreq.o 
+TARGET = testRandom.o testSK.o testBitmap.o testFreq.o testPK.o 
 
 
 CRYPTODIR = ../crypto
-CRYPTOFILES = $(CRYPTODIR)/secretkey.c
+CRYPTOFILES = $(CRYPTODIR)/secretkey.c $(CRYPTODIR)/publickey.c
 
 RANDDIR = ../crypto/rand
 RANDFILES = $(RANDDIR)/random.c
