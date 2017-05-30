@@ -175,8 +175,33 @@ int randomUniform(mpz_t rand, mpz_t n){
     // Free allocated memory for randState.
     gmp_randclear(randState);
 
+    return EXIT_SUCCESS;
+}
+
+
+
+int randomRange(mpz_t rand, mpz_t min, mpz_t max){
+
+    mpz_t randNum;
+    mpz_init(randNum);
+
+    int err;
+    while((mpz_cmp(randNum, min) < 0) || mpz_cmp(randNum, max) > 0){
+            err = randomUniform(randNum, max);
+
+            if(err){
+                return EXIT_FAILURE;
+            }
+        }
+
+    mpz_set(rand, randNum);
+
+    mpz_clear(randNum);
 
 
     return EXIT_SUCCESS;
+
+
+    
 }
 
