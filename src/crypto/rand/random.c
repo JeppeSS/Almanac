@@ -191,6 +191,10 @@ int randomUniform(mpz_t rand, mpz_t n){
  */
 int randomRange(mpz_t rand, mpz_t min, mpz_t max){
 
+    // Min range must not be larger than max
+    if(mpz_cmp(min, max) > 0){
+        return EXIT_FAILURE;
+    }
     
     // Set randNum = 0
     mpz_t randNum;
