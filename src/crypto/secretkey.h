@@ -35,6 +35,6 @@ void sk_init(SK *sk, unsigned int lambda);
 SK genSK(unsigned int lambda);
 
 // Cleanup
-int skClean(SK *sk);
+void skClean(SK *sk);
 
 #endif
