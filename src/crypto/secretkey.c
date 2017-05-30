@@ -41,6 +41,31 @@ SK genSK(unsigned int lambda){
     fprintf(stdout, "[OK] Size: %d bit\n", sk.eta);
     fprintf(stdout, "[OK] Please wait..\n");
 
+    mpz_t min, max;
+    mpz_inits(min, max, NULL);
+
+    mpz_set_ui(min, 2);
+    mpz_set_ui(max, 2);
+
+    mpz_pow_ui(min, min, sk.eta - 1);
+    mpz_pow_ui(max, max, sk.eta);
+    
+    mpz_t randNum;
+    mpz_init(randNum);
+
+    int err;
+    err = randomRange(randNum, min, max);
+
+    if(err){
+        sk.error = 1;
+    }
+
+    if(mpz_even_p(randNum)){
+        mpz_sub_ui(randNum, randNum, 1);
+    }
+
+    mpz_clears(randNum, min, max, NULL);
+
     return sk;
 
     

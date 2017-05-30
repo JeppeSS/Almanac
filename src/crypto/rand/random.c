@@ -179,12 +179,24 @@ int randomUniform(mpz_t rand, mpz_t n){
 }
 
 
-
+/* 
+ * === Function ===============================================================
+ *         Name: randomRange
+ *
+ *  Description: Generates a uniform random integer in the range [min, max],
+ *  inclusive.
+ *
+ *  Takes a placeholder for the random number and the range.
+ * ============================================================================
+ */
 int randomRange(mpz_t rand, mpz_t min, mpz_t max){
 
+    
+    // Set randNum = 0
     mpz_t randNum;
     mpz_init(randNum);
 
+    // Keeps generating a random number until in the range of [min, max]
     int err;
     while((mpz_cmp(randNum, min) < 0) || mpz_cmp(randNum, max) > 0){
             err = randomUniform(randNum, max);
@@ -194,8 +206,10 @@ int randomRange(mpz_t rand, mpz_t min, mpz_t max){
             }
         }
 
+    // Set rand to the random number generated.
     mpz_set(rand, randNum);
 
+    // Free memory
     mpz_clear(randNum);
 
 
