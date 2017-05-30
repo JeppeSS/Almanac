@@ -10,7 +10,7 @@ int main(void){
 
     printf("Testing Public key generation\n");
 
-    int numTest = 1;
+    int numTest = 2;
     int correct = 0;
     SK sk;
     PK pk;
@@ -19,9 +19,15 @@ int main(void){
 
     if(sk.error){
         fprintf(stderr, "[ERROR] Secret key generation failed\n");
+        return EXIT_FAILURE;
     }
 
     pk = genPK(&sk, 6);
+    
+    if(pk.error){
+        fprintf(stderr, "[ERROR] Public key generation failed\n");
+        return EXIT_FAILURE;
+    }
 
     mpz_t x0;
     mpz_init(x0);
@@ -41,11 +47,35 @@ int main(void){
         correct++;
     }
 
+    SK sk2;
+    PK pk2;
 
-    printf("Test result: %d/%d correct\n", correct, numTest);
+    sk2 = genSK(6);
+
+    if(sk2.error){
+        fprintf(stderr, "[ERROR] Secret key generation failed\n");
+        return EXIT_FAILURE;
+    }
+
+    pk2 = genPK(&sk2, 6);
+    
+    if(pk2.error){
+        fprintf(stderr, "[ERROR] Public key generation failed\n");
+        return EXIT_FAILURE;
+    }
+
+    if(mpz_even_p(pk2.pubK[0])){
+        fprintf(stdout, "Test 2: Failed\n");
+    } else {
+        correct++;
+    }
+
+    printf("Test result: %d/%d correct\n", numTest, correct);
 
     skClean(&sk);
     pkClean(&pk);
+    skClean(&sk2);
+    pkClean(&pk2);
 
     mpz_clear(x0);
 

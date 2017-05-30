@@ -28,6 +28,7 @@ int pk_init(PK *pk, unsigned int lambda){
     pk->rhoM   = 2*lambda;
     pk->gamma  = (unsigned int) pow(lambda, 5);
     pk->tau    = pk->gamma + lambda + 1;
+    pk->error  = 0;
     
     // Allocate (tau * byte size of mpz_t struct) size.
     // The PK array contains a array of pointers to mpz_t values.
