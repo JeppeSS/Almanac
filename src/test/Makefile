@@ -29,6 +29,7 @@ $(TARGET): %.o: %.c
 check:
 	./testRandom.o
 	./testSK.o
+	./testPK.o
 
 static:
 	./testBitmap.o
