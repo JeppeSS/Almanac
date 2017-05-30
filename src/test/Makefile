@@ -1,5 +1,8 @@
-TARGET = testRandom.o testBitmap.o testFreq.o 
+TARGET = testRandom.o testSK.o testBitmap.o testFreq.o 
 
+
+CRYPTODIR = ../crypto
+CRYPTOFILES = $(CRYPTODIR)/secretkey.c
 
 RANDDIR = ../crypto/rand
 RANDFILES = $(RANDDIR)/random.c
@@ -21,10 +24,11 @@ all: $(TARGET)
 
 
 $(TARGET): %.o: %.c
-	$(CC) $(RANDFILES) $(CFLAG)$ $(LIBS) $< -o $@
+	$(CC) $(RANDFILES) $(CRYPTOFILES) $(CFLAG)$ $(LIBS) $< -o $@
 
 check:
 	./testRandom.o
+	./testSK.o
 
 static:
 	./testBitmap.o
