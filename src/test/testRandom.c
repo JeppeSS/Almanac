@@ -9,7 +9,7 @@ int main(void){
 
     printf("Testing random functions\n");
 
-    int numTest = 6;
+    int numTest = 7;
     int correct = 0;
 
     mpz_t randT1, rangT1;
@@ -175,6 +175,20 @@ int main(void){
     } else {
         correct++;
     }
+    
+    mpz_t val3, min3, max3;
+    mpz_inits(val3, min3, max3, NULL);
+
+    mpz_set_ui(min3, 10);
+    mpz_set_ui(max3, 5);
+
+    int ret7 = randomRange(val3, min3, max3);
+
+    if(ret7){
+        correct++;
+    }else{
+        fprintf(stdout, "Test 7: Failed\n");
+    }
 
 
     mpz_clears(randT1, rangT1, NULL);
@@ -183,6 +197,8 @@ int main(void){
     mpz_clear(rangT4);
     mpz_clears(min1, max1, NULL);
     mpz_clears(min2, max2, NULL);
+    mpz_clears(min3, max3, NULL);
+    mpz_clear(val3);
     
     printf("Test result: %d/%d correct\n", correct, numTest);
     return 0;
