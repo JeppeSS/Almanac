@@ -23,7 +23,6 @@ static void sort(PK *pk);
 int pk_init(PK *pk, unsigned int lambda){
     
     // Set all parameters according to lambda.
-    pk->lambda = lambda;
     pk->rho    = lambda;
     pk->rhoM   = 2*lambda;
     pk->gamma  = (unsigned int) pow(lambda, 5);
@@ -155,11 +154,11 @@ static void sort(PK *pk){
  *  pk = (x_{0}, x_{1}, ..., x_{tau})
  * ============================================================================
  */
-PK genPK(SK *sk, unsigned int lambda){
+PK genPK(SK *sk){
 
     // Initialize the public key
     PK pk;
-    int allocate = pk_init(&pk, lambda);
+    int allocate = pk_init(&pk, sk->lambda);
 
     // Memory allocation failed.
     if(allocate){
@@ -218,7 +217,6 @@ void pkClean(PK *pk){
         mpz_clear(pk->pubK[i]);
     }
 
-    pk->lambda = 0;
     pk->rho    = 0;
     pk->rhoM   = 0;
     pk->gamma  = 0;

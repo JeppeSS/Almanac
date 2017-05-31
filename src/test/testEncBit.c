@@ -32,7 +32,7 @@ int main(void){
         return EXIT_FAILURE;
     }
 
-    pk = genPK(&sk, 8);
+    pk = genPK(&sk);
     
     if(pk.error){
         fprintf(stderr, "[ERROR] Public key generation failed\n");

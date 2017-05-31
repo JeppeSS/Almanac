@@ -19,9 +19,6 @@
  */
 typedef struct{
 
-    // Security Parameter.
-    unsigned int lambda;
-
     // Bit-length of noise
     unsigned int rho;
     unsigned int rhoM;
@@ -44,7 +41,7 @@ typedef struct{
 int pk_init(PK *pk, unsigned int lambda);
 
 // Generators
-PK genPK(SK *sk, unsigned int lambda);
+PK genPK(SK *sk);
 
 // Cleanup
 void pkClean(PK *pk);

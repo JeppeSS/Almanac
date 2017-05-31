@@ -22,7 +22,7 @@ int main(void){
         return EXIT_FAILURE;
     }
 
-    pk = genPK(&sk, 6);
+    pk = genPK(&sk);
     
     if(pk.error){
         fprintf(stderr, "[ERROR] Public key generation failed\n");
@@ -57,7 +57,7 @@ int main(void){
         return EXIT_FAILURE;
     }
 
-    pk2 = genPK(&sk2, 6);
+    pk2 = genPK(&sk2);
     
     if(pk2.error){
         fprintf(stderr, "[ERROR] Public key generation failed\n");
