@@ -2,7 +2,7 @@ TARGET = testRandom.o testSK.o testBitmap.o testFreq.o testPK.o testEncBit.o
 
 
 CRYPTODIR = ../crypto
-CRYPTOFILES = $(CRYPTODIR)/secretkey.c $(CRYPTODIR)/publickey.c $(CRYPTODIR)/chipertext.c $(CRYPTODIR)/dghv.c
+CRYPTOFILES = $(CRYPTODIR)/secretkey.c $(CRYPTODIR)/publickey.c $(CRYPTODIR)/chipertext.c $(CRYPTODIR)/dghv.c $(CRYPTODIR)/plaintext.c
 
 RANDDIR = ../crypto/rand
 RANDFILES = $(RANDDIR)/random.c
