@@ -8,17 +8,28 @@
 #include "rand/random.h"
 
 
-
+/* 
+ * === Function ===============================================================
+ *         Name: Encrypts a single bit.
+ *
+ *  Description: Encrypts a single bit, takes a placeholder for the chier,
+ *  a public key, and a bit.
+ * ============================================================================
+ */
 int encryptBit(mpz_t chiper, PK *pk, int bit){
 
+    // Set tau, r, sum = 0
     mpz_t subStart, subEnd, tau, r, sum;
     mpz_inits(tau, r, sum, NULL);
 
+    // Set tau to the number of vales in the public key.
     mpz_set_ui(tau, pk->tau);
 
+    // Find a random subset from the public key vector.
     unsigned long int start = 0;
     unsigned long int end   = 0;
     
+    // Keeps running if start or end is = 0.
     int errorStart;
     int errorEnd;
     while(start == 0 || end == 0){
@@ -28,12 +39,14 @@ int encryptBit(mpz_t chiper, PK *pk, int bit){
         
         errorStart = randomUniform(subStart, tau);
         
+        // Random failed.
         if(errorStart){
             return EXIT_FAILURE;
         }
 
         errorEnd = randomUniform(subEnd, tau);
         
+        // Random failed.
         if(errorEnd){
             return EXIT_FAILURE;
         }
@@ -41,42 +54,53 @@ int encryptBit(mpz_t chiper, PK *pk, int bit){
         start = mpz_get_ui(subStart);
         end   = mpz_get_ui(subEnd);
 
-        // Swap if start is larger than end.
+        // Swap if start is larger than end,
+        // to reduce loop runs.
         if(start > end){
             start = mpz_get_ui(subEnd);
             end   = mpz_get_ui(subStart);
         }
 
+        // Eliminate subset range and free memory.
         mpz_set_ui(subStart, 0);
         mpz_set_ui(subEnd, 0);
         mpz_clears(subStart, subEnd, NULL);
     }
 
+    // Define range 2^{rhoM} as encryption noise
     mpz_ui_pow_ui(r, 2, pk->rhoM);
 
-    int errorR = randomUniform(r, r);
     
+    int errorR = randomUniform(r, r);
+
+    // If random fails
     if(errorR){
         return EXIT_FAILURE;
     }
 
+    // Sum the subset generated.
     for(unsigned long int i = start; i < end; i++){
         mpz_add(sum, sum, pk->pubK[i]);
     }
 
 
+    // set r = 2*r
     mpz_mul_si(r, r, 2);
 
     long unsigned int bits = (long unsigned int) bit;
 
+
+    // set chiper = bit + 2r + Sum(subset)
     mpz_add_ui(sum, sum, bits);
     mpz_add(r, r, sum);
-
     mpz_mod(chiper, r, pk->pubK[0]);
-
+    
+    
+    // Set values to 0 and free memory.
     mpz_set_ui(tau, 0);
     mpz_set_ui(r, 0);
     mpz_set_ui(sum, 0);
+
 
     mpz_clear(tau);
     mpz_clear(r);
@@ -85,6 +109,15 @@ int encryptBit(mpz_t chiper, PK *pk, int bit){
     return EXIT_SUCCESS;
 }
 
+
+/* 
+ * === Function ===============================================================
+ *         Name: decrypts a single bit.
+ *
+ *  Description: Decrypts a single bit, takes the secret key and the
+ *  chipertext. Returns the bit.
+ * ============================================================================
+ */
 int decryptBit(SK *sk, mpz_t chiper){
 
     // Set plain = 0
@@ -92,6 +125,7 @@ int decryptBit(SK *sk, mpz_t chiper){
     mpz_init(plain);
 
 
+    // (chiper % secK) % 2
     mpz_mod(plain, chiper, sk->secK);
     mpz_mod_ui(plain, plain, 2);
 
