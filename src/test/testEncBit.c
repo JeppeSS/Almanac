@@ -11,7 +11,7 @@
 int main(void){
     printf("Testing Bit encryption\n");
     
-    int numTest = 0;
+    int numTest = 1;
     int correct = 0;
     SK sk;
     PK pk;
@@ -83,25 +83,49 @@ int main(void){
         return EXIT_FAILURE;
     }
 
+    int flag = 0;
     int bit;
-
     bit = decryptBit(&sk, chiper1);
-    printf("%d\n", bit);
+
+    if(bit != 1){
+        flag = 1;
+    }
     
     bit = decryptBit(&sk, chiper2);
-    printf("%d\n", bit);
-    
+
+    if(bit != 0){
+        flag = 1;
+    }
     bit = decryptBit(&sk, chiper3);
-    printf("%d\n", bit);
+    
+    if(bit != 1){
+        flag = 1;
+    }
     
     bit = decryptBit(&sk, chiper4);
-    printf("%d\n", bit);
+    
+    if(bit != 1){
+        flag = 1;
+    }
     
     bit = decryptBit(&sk, chiper5);
-    printf("%d\n", bit);
+    
+    if(bit != 0){
+        flag = 1;
+    }
     
     bit = decryptBit(&sk, chiper6);
-    printf("%d\n", bit);
+    
+    if(bit != 1){
+        flag = 1;
+    }
+
+
+    if(flag){
+        fprintf(stdout, "Test 1: Failed\n"); 
+    } else {
+        correct++;
+    }
     
     skClean(&sk);
     pkClean(&pk);
