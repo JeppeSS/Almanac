@@ -5,19 +5,31 @@
 #include "plaintext.h"
 
 
-int plainT_init(Plaintext *plain, char *msg){
+/* 
+ * === Function ===============================================================
+ *         Name: plainT_init
+ *
+ *  Description: Initialize the plaintext, allocated memory for it.
+ * ============================================================================
+ */
+int plainT_init(Plaintext *plain, const char *msg){
 
+    // Allocate memory for the message.
     plain->msg = malloc(strlen(msg));
 
+    // If allocation failed.
     if(plain->msg == NULL){
         fprintf(stderr, "[ERROR] Memory allocation for plaintext failed\n");
         return EXIT_FAILURE;
     }
 
+    // Copy the message into the plaintext structure.
     strcpy(plain->msg, msg);
     
+    // Allocate memory for the binary representation.
     plain->bin = malloc(strlen(msg) * (8 * sizeof(int)));
 
+    // If allocation failed.
     if(plain->bin == NULL){
         fprintf(stderr, "[ERROR] Memory allocation for binary repr failed\n");
     }
@@ -25,16 +37,26 @@ int plainT_init(Plaintext *plain, char *msg){
     plain->size = 0;
     plain->error = 0;
 
+    // Create a binary representation of the message.
     toBinary(plain);
 
     return EXIT_SUCCESS;
 }
 
-Plaintext text(char *msg){
+/* 
+ * === Function ===============================================================
+ *         Name: text
+ *
+ *  Description: Constructs a plaintext structure. 
+ * ============================================================================
+ */
+Plaintext text(const char *msg){
     Plaintext plain;
 
+    // Initialize the structure
     int error = plainT_init(&plain, msg);
     
+    // If initialization failed.
     if(error){
         plain.error = 1;
         return plain;
@@ -43,10 +65,18 @@ Plaintext text(char *msg){
     return plain;
 }
 
+/* 
+ * === Function ===============================================================
+ *         Name: toBinary
+ *
+ *  Description: Make a binary representation of the plaintext message. 
+ * ============================================================================
+ */
 void toBinary(Plaintext *plain){
 
     int index = 0;
 
+    // Convert each letter (ASCII repr), to binary.
     for(int i = 0; plain->msg[i] != '\0'; ++i){
         for(int j = 0; j < 8; ++j){
             plain->bin[index] = ((plain->msg[i] >> j) & 1);
@@ -56,6 +86,13 @@ void toBinary(Plaintext *plain){
     }
 }
 
+/* 
+ * === Function ===============================================================
+ *         Name: fromBinary
+ *
+ *  Description: Convert the binary representation to text. 
+ * ============================================================================
+ */
 void fromBinary(Plaintext *plain){
 
     int count = 0;
@@ -64,6 +101,8 @@ void fromBinary(Plaintext *plain){
     int r = 1;
 
 
+    // A char, contains 8 bits. 
+    // Extract the 8 bits, and convert to ASCII (char).
     for(unsigned int i = 0; i <= plain->size; ++i){
         if(count == 8){
             count = 0;

@@ -5,6 +5,8 @@
 #include "publickey.h"
 #include "secretkey.h"
 #include "dghv.h"
+#include "plaintext.h"
+#include "chipertext.h"
 #include "rand/random.h"
 
 
@@ -136,3 +138,35 @@ int decryptBit(SK *sk, mpz_t chiper){
 
     return bit;
 }
+
+
+Chipertext encrypt(PK *pk, Plaintext *plain){
+
+    Chipertext chiper;
+
+    chiper_init(&chiper, plain->size);
+
+    for(unsigned int i = 0; i < plain->size; i++){
+        encryptBit(chiper.chiper[i], pk, plain->bin[i]);
+    }
+
+    return chiper;
+}
+
+Plaintext decrypt(SK *sk, Chipertext *chiper){
+    Plaintext plain;
+
+    plain.msg  = calloc(chiper->size, sizeof(int));
+    plain.bin  = calloc(chiper->size * 8, sizeof(int));
+    plain.size = chiper->size;
+
+    for(unsigned int i = 0; i < plain.size; i++){
+        plain.bin[i] = decryptBit(sk, chiper->chiper[i]);
+    }
+
+    fromBinary(&plain);
+
+    return plain;
+
+}
+
