@@ -18,6 +18,10 @@
  * ============================================================================
  */
 typedef struct{
+    
+    // Security parameter
+    unsigned int lambda;
+
 
     // Bit-length of noise
     unsigned int rho;

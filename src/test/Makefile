@@ -1,4 +1,4 @@
-TARGET = testRandom.o testSK.o testBitmap.o testFreq.o testPK.o testEncBit.o testEncryp.o testFunctionL.o testEncBitSize.o testCorrectness.o testEvalBit.o testEval.o testWriteSK.o
+TARGET = testRandom.o testSK.o testBitmap.o testFreq.o testPK.o testEncBit.o testEncryp.o testFunctionL.o testEncBitSize.o testCorrectness.o testEvalBit.o testEval.o testWriteSK.o testWritePK.o
 
 
 CRYPTODIR = ../crypto
@@ -29,7 +29,7 @@ all: $(TARGET)
 $(TARGET): %.o: %.c
 	$(CC) $(RANDFILES) $(CRYPTOFILES) $(CRYPTOFMFIL) $(CFLAG)$ $(LIBS) $< -o $@
 
-check:
+crypTest:
 	./testRandom.o
 	./testSK.o
 	./testPK.o
@@ -37,6 +37,7 @@ check:
 	./testEvalBit.o
 	./testEval.o
 	./testWriteSK.o
+	./testWritePK.o
 
 static:
 	./testBitmap.o

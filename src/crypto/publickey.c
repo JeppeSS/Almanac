@@ -23,6 +23,7 @@ static void sort(PK *pk);
 int pk_init(PK *pk, unsigned int lambda){
     
     // Set all parameters according to lambda.
+    pk->lambda = lambda;
     pk->rho    = lambda;
     pk->rhoM   = 2*lambda;
     pk->gamma  = (unsigned int) pow(lambda, 5);
