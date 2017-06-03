@@ -186,7 +186,10 @@ int randomUniform(mpz_t rand, mpz_t n){
  *  Description: Generates a uniform random integer in the range [min, max],
  *  inclusive.
  *
- *  Takes a placeholder for the random number and the range.
+ *  Takes a placeholder for the random number and the range. This may seem like
+ *  a weird way og generating a number in a certain range. GMP provided a
+ *  function for this, but we experienced that when the numbers get too large
+ *  the randomness for the number decreased.
  * ============================================================================
  */
 int randomRange(mpz_t rand, mpz_t min, mpz_t max){

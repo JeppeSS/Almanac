@@ -16,16 +16,18 @@ with open("Data/encSize.txt") as data:
 
 data.close()
 
-xp = np.linspace(4, 10, 100)
+xp = np.linspace(0, 10, 100)
 
-fit = np.polyfit(lambdaV,encSize,3)
+fit = np.polyfit(lambdaV,encSize,4)
 fit_fn = np.poly1d(fit) 
 # fit_fn is now a function which takes in x and returns an estimate for y
 
 plt.plot(lambdaV,encSize, '.', xp, fit_fn(xp), '-')
-plt.xlabel("Lambda")
-plt.ylabel("Bit size")
-plt.title("Encryption size of a single Bit according to Lambda")
+plt.xlabel("$\lambda$")
+plt.ylabel("Bit size", labelpad=1)
+plt.xlim([0, 10])
+plt.ylim([0, 101000])
+plt.title("Encryption size of a single Bit according to $\lambda$")
 plt.savefig("Data/encryptBit.png")
 print("Saving Encryption plot as encryptionBit.png")
 

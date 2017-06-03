@@ -16,14 +16,14 @@ with open("Data/timeComplex.txt") as data:
 
 data.close()
 
-xp = np.linspace(-1, 10, 200)
+xp = np.linspace(0, 10, 50)
 
 fit = np.polyfit(lambdaV,timeC,3)
 fit_fn = np.poly1d(fit) 
 # fit_fn is now a function which takes in x and returns an estimate for y
 
 plt.plot(lambdaV,timeC, '.', xp, fit_fn(xp), '-')
-plt.xlabel("Lambda")
+plt.xlabel("$\lambda$")
 plt.xlim([0, 10])
 plt.ylim([0, 465])
 plt.ylabel("Seconds")

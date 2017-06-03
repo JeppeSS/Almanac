@@ -23,10 +23,10 @@ fit_fn = np.poly1d(fit)
 # fit_fn is now a function which takes in x and returns an estimate for y
 
 plt.plot(lambdaV,percent, '.', xp, fit_fn(xp), '-')
-plt.xlabel("Lambda")
+plt.xlabel("$\lambda$")
 plt.ylabel("Correctness %")
 plt.ylim([0.0, 1.0])
-plt.title("Correctness according to Lambda")
+plt.title("Correctness according to $\lambda$")
 plt.savefig("Data/correctness.png")
 print("Saving correctness plot as correctness.png")
 

@@ -24,8 +24,8 @@ int main(void){
     mpz_t chiper;
 
 
-    unsigned int startLamb = 4;
-    unsigned int endLamb   = 6;
+    unsigned int startLamb = 1;
+    unsigned int endLamb   = 3;
     unsigned int lambRuns  = 10;
     
     int ret;
@@ -53,8 +53,8 @@ int main(void){
         fprintf(stdout, "Done calculating lambda: %d\n", i);
     }
     
-    startLamb = 7;
-    endLamb   = 10;
+    startLamb = 1;
+    endLamb   = 3;
     lambRuns  = 2;
     
     for(unsigned int i = startLamb; i <= endLamb; i++){

@@ -20,6 +20,16 @@ int main(void){
 
     Plaintext msg = text("Tekst streng test");
 
+    Plaintext msg2 = text("2ekst streng test");
+    Plaintext msg3 = text("Tekst sdreng test");
+    Plaintext msg3 = text("Tekst stfdsreng test");
+    Plaintext msg5 = text("Tekst stregg test");
+    
+    Plaintext msg6 = text("Tekst streng test");
+    
+    
+    Plaintext msg7 = text("Tekst streng test");
+
     sk = genSK(8);
     
     if(sk.error){

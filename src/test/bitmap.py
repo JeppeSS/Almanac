@@ -23,7 +23,5 @@ with open("Data/bitmap.txt") as data:
 data.close()
 
 plt.imshow(bitmap, cmap='gray', interpolation='nearest')
-plt.xlabel('Pixel width')
-plt.ylabel('Pixel height')
-plt.title('Mersenne Twister Algorithm')
+plt.axis('off')
 plt.savefig('Data/bitmap.png')

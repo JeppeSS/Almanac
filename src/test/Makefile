@@ -1,4 +1,4 @@
-TARGET = testRandom.o testSK.o testBitmap.o testFreq.o testPK.o testEncBit.o testEncryp.o testFunctionL.o testEncBitSize.o testCorrectness.o
+TARGET = testRandom.o testSK.o testBitmap.o testFreq.o testPK.o testEncBit.o testEncryp.o testFunctionL.o testEncBitSize.o testCorrectness.o testEvalBit.o
 
 
 CRYPTODIR = ../crypto
