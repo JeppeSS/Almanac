@@ -58,7 +58,7 @@ int main(void){
         correct++;
     }
 
-    printf("Test result: %d/%d correct\n", numTest, correct);
+    printf("Test result: %d/%d correct\n", correct, numTest);
 
 
     return 0;

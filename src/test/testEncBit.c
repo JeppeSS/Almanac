@@ -133,7 +133,7 @@ int main(void){
 
     mpz_clears(chiper1, chiper2, chiper3, chiper4, chiper5, chiper6, NULL);
 
-    printf("Test result: %d/%d correct\n", numTest, correct);
+    printf("Test result: %d/%d correct\n", correct, numTest);
     
     return EXIT_SUCCESS;
 }

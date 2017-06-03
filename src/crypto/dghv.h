@@ -19,6 +19,6 @@ Plaintext decrypt(SK *sk, Chipertext *chiper);
 // Evaluate two bits (Compare).
 void evaluateBit(mpz_t chiper, mpz_t chiper1, mpz_t chiper2);
 // Evaluate two strings (Compare).
-void evaluate(Chipertext *res, Chipertext *chiper1, Chipertext *chiper2);
+Chipertext evaluate(Chipertext *chiper1, Chipertext *chiper2);
 
 #endif

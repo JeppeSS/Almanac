@@ -70,7 +70,7 @@ int main(void){
         correct++;
     }
 
-    printf("Test result: %d/%d correct\n", numTest, correct);
+    printf("Test result: %d/%d correct\n", correct, numTest);
 
     skClean(&sk);
     pkClean(&pk);

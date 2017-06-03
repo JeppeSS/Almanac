@@ -200,7 +200,7 @@ int main(void){
     mpz_clears(min3, max3, NULL);
     mpz_clear(val3);
     
-    printf("Test result: %d/%d correct\n", numTest, correct);
+    printf("Test result: %d/%d correct\n", correct, numTest);
     return 0;
 }
 

@@ -200,3 +200,15 @@ void evaluateBit(mpz_t chiper, mpz_t chiper1, mpz_t chiper2){
     mpz_add(chiper, chiper1, chiper2);
 }
 
+Chipertext evaluate(Chipertext *chiper1, Chipertext *chiper2){
+    
+    Chipertext chip;
+    chiper_init(&chip, chiper1->size);
+
+    for(unsigned int i = 0; i < chiper1->size; i++){
+        evaluateBit(chip.chiper[i], chiper1->chiper[i], chiper2->chiper[i]);
+    }
+
+    return chip;
+    
+}
