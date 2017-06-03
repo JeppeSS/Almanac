@@ -61,3 +61,109 @@ int writeSK(SK *sk, const char *filename){
 
     return EXIT_SUCCESS;
 }
+
+
+/* 
+ * === Function ===============================================================
+ *         Name: readSK
+ *
+ *  Description: Reads the secret key into a SK structure.
+ * ============================================================================
+ */
+SK readSK(const char *filename){
+    
+    SK secK;
+
+    // The filename of the secret key.
+    FILE *fp = fopen(filename, "rb");
+    
+    // Copy the whole file into source.
+    char *source;
+
+    // If file could not be opend.
+    if(!fp){
+        fprintf(stderr, "[ERROR] Could not write public key to file\n");
+    }
+
+    long bufsize;
+
+    /*Go to the end of the file */
+    if(fseek(fp, 0L, SEEK_END) == 0){
+
+        bufsize = ftell(fp);
+
+        if(bufsize == -1){
+            fprintf(stderr, "[ERROR] Could not read file\n");
+        }
+
+        /* Allocate our buffer to that size.  */
+        source = malloc(sizeof(char) * ((unsigned int)bufsize + 1));
+
+        /*  Go back to the start of the file. */
+        if(fseek(fp, 0L, SEEK_SET) != 0){
+            fprintf(stderr, "[ERROR] Could not read file\n");
+        }
+
+        /* Read the entire file into memory. */
+        size_t newLen = fread(source, sizeof(char), (unsigned int)bufsize, fp);
+
+        if(ferror(fp) != 0){
+            fprintf(stderr, "[ERROR] Could not read file\n");
+        } else {
+            /* Just to be sure that the file has an ending. */
+            source[newLen++] = '\0';
+        }
+
+        fclose(fp);
+    }
+
+    // Allocate memory for lambda, assume lambda will not be larger than
+    // 100 blocks of size char.
+    char *lamb = calloc(100, sizeof(char));
+
+    // Where the lambda parameter begins.
+    int startParam = 31;
+    int index      = 0;
+    for(int i = startParam; source[i] != '\n'; i++){
+        lamb[index] = source[i];
+        startParam++;
+        index++;
+    }
+
+    // Convert the lambda to an unsigned int.
+    unsigned int lambda = (unsigned int)atoi(lamb);
+
+    // Where secret key value begins.
+    startParam += 61;
+
+    // Initialize the secret key with lambda.
+    sk_init(&secK, lambda);
+
+    // Allocate space for the secret key. 
+    char *secretK = calloc(secK.eta, sizeof(char));
+    
+    // Copy the secret key from source into the allocated
+    // memory
+    index = 0;
+    for(int i = startParam; source[i] != '\n'; i++){
+        secretK[index] = source[i];
+        index++;
+    }
+
+    // Convert the key to mpz_t value
+    int convert = mpz_set_str(secK.secK, secretK, 16);
+
+    // If conversion failed.
+    if(convert < 0){
+        fprintf(stderr, "[ERROR] Could not import secret key\n");
+    }
+
+
+    // Free memory.
+    free(secretK);
+    free(source);
+
+
+    return secK;
+
+}
