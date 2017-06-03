@@ -27,7 +27,19 @@ int main(void){
         fprintf(stderr, "[ERROR] Writing key to file failed\n");
     }
 
+    SK sk2;
+
+    sk2 = readSK("secretKey.txt"); 
+
+    if(mpz_cmp(sk.secK, sk2.secK) == 0){
+        correct++;
+    } else {
+        fprintf(stdout, "Test 1: Failed\n"); 
+    }
+
+
     skClean(&sk);
+    skClean(&sk2);
 
 
     printf("Test result: %d/%d correct\n", correct, numTest);

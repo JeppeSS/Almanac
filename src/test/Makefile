@@ -36,6 +36,7 @@ check:
 	./testEncBit.o
 	./testEvalBit.o
 	./testEval.o
+	./testWriteSK.o
 
 static:
 	./testBitmap.o
