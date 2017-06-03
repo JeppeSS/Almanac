@@ -200,11 +200,20 @@ void evaluateBit(mpz_t chiper, mpz_t chiper1, mpz_t chiper2){
     mpz_add(chiper, chiper1, chiper2);
 }
 
+/* 
+ * === Function ===============================================================
+ *         Name: evaluate
+ *
+ *  Description: Evaluates two text strings. Returns a chipertext structure,
+ *  when decrypted all bits = 0 if equal otherwise not equal.
+ * ============================================================================
+ */
 Chipertext evaluate(Chipertext *chiper1, Chipertext *chiper2){
     
     Chipertext chip;
     chiper_init(&chip, chiper1->size);
 
+    // Evaluate bitwise.
     for(unsigned int i = 0; i < chiper1->size; i++){
         evaluateBit(chip.chiper[i], chiper1->chiper[i], chiper2->chiper[i]);
     }
