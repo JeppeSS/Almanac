@@ -140,12 +140,21 @@ int decryptBit(SK *sk, mpz_t chiper){
 }
 
 
+/* 
+ * === Function ===============================================================
+ *         Name: Encrypts a text string
+ *
+ *  Description: Encrypts a whole text sring, return a chipertext structure
+ * ============================================================================
+ */
 Chipertext encrypt(PK *pk, Plaintext *plain){
 
     Chipertext chiper;
 
     chiper_init(&chiper, plain->size);
 
+    // Encrypt each bit seapretly and store in a vector of encrypted
+    // bits
     for(unsigned int i = 0; i < plain->size; i++){
         encryptBit(chiper.chiper[i], pk, plain->bin[i]);
     }
@@ -153,6 +162,13 @@ Chipertext encrypt(PK *pk, Plaintext *plain){
     return chiper;
 }
 
+/* 
+ * === Function ===============================================================
+ *         Name: decrypts a text string
+ *
+ *  Description: decrypts a whole text sring, return a plaintext structure
+ * ============================================================================
+ */
 Plaintext decrypt(SK *sk, Chipertext *chiper){
     Plaintext plain;
 
@@ -160,13 +176,27 @@ Plaintext decrypt(SK *sk, Chipertext *chiper){
     plain.bin  = calloc(chiper->size * 8, sizeof(int));
     plain.size = chiper->size;
 
+    // Decrypt each bit seapretly and store in a vector of bits.
     for(unsigned int i = 0; i < plain.size; i++){
         plain.bin[i] = decryptBit(sk, chiper->chiper[i]);
     }
 
+    // Convert the binary representation to string.
     fromBinary(&plain);
 
     return plain;
 
+}
+
+/* 
+ * === Function ===============================================================
+ *         Name: evaluateBit
+ *
+ *  Description: Evaluates two single bits, when decrypted 0 if equal 1
+ *  otherwise
+ * ============================================================================
+ */
+void evaluateBit(mpz_t chiper, mpz_t chiper1, mpz_t chiper2){
+    mpz_add(chiper, chiper1, chiper2);
 }
 
