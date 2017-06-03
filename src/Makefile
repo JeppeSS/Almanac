@@ -20,8 +20,8 @@ default: project_code
 project_code:
 	$(MAKE) -C $(TEST_DIR)
 
-check:
-	$(MAKE) -C $(TEST_DIR) check
+crypTest:
+	$(MAKE) -C $(TEST_DIR) crypTest
 
 static:
 	$(MAKE) -C $(TEST_DIR) static
