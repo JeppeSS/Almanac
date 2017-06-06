@@ -1,3 +1,0 @@
-Jens Peter,FragtSkib-45,3,brugerId1
-Peter Jensen,FragtSkib-46,6,brugerId2
-Jens dunno,FragtSkib-47,3,brugerId3

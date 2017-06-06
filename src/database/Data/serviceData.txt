@@ -1,2 +1,0 @@
-GPS,Global Position System,4,serviceId1
-WFC,Weather Forecast,3,serviceId2
