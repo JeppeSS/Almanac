@@ -5,7 +5,6 @@ $(info The Almanac prototype)
 
 $(info Requires)
 $(info GMP Version 6.1.2, see https://gmplib.org/)
-$(info MySQL Version 10.1.23)
 $(info )
 
 # Compile test files in test directory
@@ -19,6 +18,9 @@ default: project_code
 
 project_code:
 	$(MAKE) -C $(TEST_DIR)
+
+check:
+	$(MAKE) -C $(TEST_DIR) check
 
 crypTest:
 	$(MAKE) -C $(TEST_DIR) crypTest

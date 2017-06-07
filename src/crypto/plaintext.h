@@ -35,8 +35,5 @@ Plaintext text(const char *msg);
 void toBinary(Plaintext *plain);
 void fromBinary(Plaintext *plain);
 
-// Cleanup
-int plaintext_clean(Plaintext *plain);
-
 #endif
 

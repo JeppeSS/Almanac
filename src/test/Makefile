@@ -1,6 +1,4 @@
-TARGET = testRandom.o testSK.o testBitmap.o testFreq.o testPK.o testEncBit.o testEncryp.o testFunctionL.o testEncBitSize.o testCorrectness.o testEvalBit.o testEval.o testWriteSK.o testWritePK.o
-
-
+TARGET = testRandom.o testSK.o testBitmap.o testFreq.o testPK.o testEncBit.o testEncryp.o testFunctionL.o testEncBitSize.o testCorrectness.o testEvalBit.o testEval.o testWriteSK.o testWritePK.o runTest.o
 CRYPTODIR = ../crypto
 CRYPTOFILES = $(CRYPTODIR)/secretkey.c $(CRYPTODIR)/publickey.c $(CRYPTODIR)/chipertext.c $(CRYPTODIR)/dghv.c $(CRYPTODIR)/plaintext.c
 
@@ -28,6 +26,10 @@ all: $(TARGET)
 
 $(TARGET): %.o: %.c
 	$(CC) $(RANDFILES) $(CRYPTOFILES) $(CRYPTOFMFIL) $(CFLAG)$ $(LIBS) $< -o $@
+
+
+check:
+	./runTest.o
 
 crypTest:
 	./testRandom.o

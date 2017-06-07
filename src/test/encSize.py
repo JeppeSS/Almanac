@@ -1,6 +1,5 @@
 import numpy as np
 import pylab as plt
-from scipy import stats
 
 
 print("Drawing plot: Lambda as a function of time")
